@@ -1,0 +1,17 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CC	Makefile	/^CC = gcc $/;"	m
+CFLGAS	Makefile	/^CFLGAS = -Wall -O2$/;"	m
+Insert_pn_name	sys.c	/^int Insert_pn_name(void)$/;"	f
+Insert_pn_number	sys.c	/^int Insert_pn_number(void)$/;"	f
+Phone_Data	sys.h	/^}Phone_Data;$/;"	t	typeref:struct:__anon1
+data	sys.c	/^Phone_Data data;$/;"	v
+main	main.c	/^int main(void)$/;"	f
+name	sys.h	/^	unsigned char name[16];$/;"	m	struct:__anon1
+pn	sys.h	/^	unsigned char pn[16];$/;"	m	struct:__anon1
+print_data	sys.c	/^void print_data(void)$/;"	f
+sys_init	sys.c	/^void sys_init(void)$/;"	f
