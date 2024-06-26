@@ -6,12 +6,18 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 CC	Makefile	/^CC = gcc $/;"	m
 CFLGAS	Makefile	/^CFLGAS = -Wall -O2$/;"	m
-Insert_pn_name	sys.c	/^int Insert_pn_name(void)$/;"	f
-Insert_pn_number	sys.c	/^int Insert_pn_number(void)$/;"	f
-Phone_Data	sys.h	/^}Phone_Data;$/;"	t	typeref:struct:__anon1
-data	sys.c	/^Phone_Data data;$/;"	v
-main	main.c	/^int main(void)$/;"	f
-name	sys.h	/^	unsigned char name[16];$/;"	m	struct:__anon1
-pn	sys.h	/^	unsigned char pn[16];$/;"	m	struct:__anon1
+Insert_pn_info	sys.c	/^int Insert_pn_info(void)$/;"	f
+Linkd_list_init	sys.c	/^void Linkd_list_init(void)$/;"	f
+Linked_list_add	sys.c	/^void Linked_list_add(char *name, char *number)$/;"	f
+Linked_list_remove	sys.c	/^void Linked_list_remove(char *number)$/;"	f
+Linked_list_search	sys.c	/^void Linked_list_search(char *name)$/;"	f
+MS_100	main.c	7;"	d	file:
+Phone_Data	sys.h	/^}Phone_Data;$/;"	t	typeref:struct:phone
+head	sys.c	/^Phone_Data *head;$/;"	v
+main	main.c	/^int main(int argc, char* argv)$/;"	f
+name	sys.h	/^	unsigned char name[16];$/;"	m	struct:phone
+next	sys.h	/^	struct phone* next;$/;"	m	struct:phone	typeref:struct:phone::phone
+number	sys.h	/^	unsigned char number[16];$/;"	m	struct:phone
+phone	sys.h	/^typedef struct phone{$/;"	s
 print_data	sys.c	/^void print_data(void)$/;"	f
-sys_init	sys.c	/^void sys_init(void)$/;"	f
+tail	sys.c	/^Phone_Data *tail;$/;"	v

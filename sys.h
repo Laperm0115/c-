@@ -9,5 +9,8 @@ void Linked_list_remove(char *number);
 void Linked_list_search(char *name);
 void Linked_list_add(char *name, char *number);
 int Insert_pn_info(void);
+int File_save(char *,char*);
+int File_remove(void);
+int File_store(void);
 void Linkd_list_init(void);
 void print_data(void);

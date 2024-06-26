@@ -9,4 +9,6 @@ sys.o : sys.c sys.h
 	$(CC) -c -o sys.o sys.c
 clean:
 	rm -f *.o
+tag:
+	ctags -R
 
