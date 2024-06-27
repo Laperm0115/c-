@@ -7,6 +7,7 @@
 #define MS_100 1000*1000
 #define NAME_LEN 3
 #define NUMBER_LEN 13
+
 int main(int argc, char* argv)
 {
 	char cmd[4] = "";
@@ -21,7 +22,7 @@ int main(int argc, char* argv)
 	if(strcmp(cmd,"yes") == 0 || strcmp(cmd,"Yes") == 0)
 	{
 		printf("%s","파일을 불러오는중입니다...\n");
-		// save file func
+		File_store();
 	}
 	else
 		printf("%s","파일을 불러오지 않습니다!!\n");
@@ -38,6 +39,7 @@ int main(int argc, char* argv)
 		printf("d: 전화번호 검색 ex) d minsu\n");
 		printf("e: 화면 클리어 \n");
 		printf("f: 전화번호 저장파일 삭제 \n");
+		printf("t: 테스트 프로그램 실행 \n");
 		printf("q: 프로그램 종료\n");
 		printf("%s",line);
 		scanf("%s",cmd);
@@ -85,6 +87,11 @@ int main(int argc, char* argv)
 			case 'f':
 				{
 					File_remove();
+					break;
+				}
+			case 't':
+				{
+					Test_Insert_pn_info();
 					break;
 				}
 			case 'q':

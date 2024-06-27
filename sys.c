@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
+#include <time.h>
 #include "sys.h"
 
 #define NAME_LEN 3
@@ -49,7 +51,7 @@ void Linked_list_search(char *name)
 
 	for(; cur; cur = cur->next)
 	{
-		if(strcmp(cur->name,name) == 0)
+		if(strcasecmp(cur->name,name) == 0)
 		{
 			printf("Found Data!!\n");
 			printf("Found Data[NAME]:%s\n",cur->name);
@@ -61,7 +63,7 @@ void Linked_list_search(char *name)
 	return ;
 }
 
-void Linked_list_add(char *name, char *number)
+void Linked_list_add(char *name, char *number,int save)
 {
 	Phone_Data *n_node;
 
@@ -79,7 +81,8 @@ void Linked_list_add(char *name, char *number)
 		tail->next = n_node;
 
 	tail = n_node;
-	File_save(name,number);
+	if(save == 1)
+		File_save(name,number);
 	return ;
 }
 
@@ -90,21 +93,48 @@ int File_save(char *name, char* number)
 	//fseek(fp,0,SEEK_END);
 	fprintf(fp,"Name: %s Phone number: %s\n", name, number);
 	fclose(fp);
+
+	return 0;
 }
 int File_remove(void)
 {
 	const char* filename = "Storage.txt";
 	remove(filename);
+	printf("전화번호 파일을 삭제하였습니다!!\n");
+
+	return 0;
 }
 int File_store(void)
 {
 	FILE *fp;
-	char name[16];
-	char number[16];
+	char name[16] = "";
+	char number[16] = "";
+	int i = 0;
+	int ret = 0;
 	fp = fopen("Storage.txt","r");
-	fscanf(fp,"Name: %s Phone number: %s\n",name,number);
-	printf("FILE STORE!! %s %s\n",name,number);
+
+	if(fp == NULL)
+	{
+		fprintf(stderr,"[ERROR]%s(%d)에서 오류 발생:%s\n",
+				__func__,__LINE__,strerror(errno));
+		fprintf(stdout,"[ERROR]저장실패!!\n");
+		return -1;
+	}
+	while(1)
+	{
+		ret = fscanf(fp,"Name: %s Phone number: %s\n",name,number);
+		
+		if(ret == 0 || ret == EOF)
+		{
+			printf("FILE STORE END...\n");
+			break;
+		}
+		Linked_list_add(name,number,0);
+		printf("FILE STORE Data[%d]...\n",i);
+		i++;
+	}
 	fclose(fp);
+	return 0;
 }
 int Insert_pn_info(void)
 {
@@ -128,10 +158,34 @@ int Insert_pn_info(void)
 	number[strlen(number) - 1 ] = '\0';
 	name[strlen(name) - 1 ] = '\0';
 
-	Linked_list_add(name,number);
+	Linked_list_add(name,number,1);
 	return 0;
 }
+int Test_Insert_pn_info(void)
+{
+	char number[100][16] = {0,};
+	char name[100][16] = {0,};
 
+	srand((unsigned int)time(NULL));
+	for(int i = 0; i < 99; i++)
+	{
+		strcpy(number[i],"010-");
+		for(int j = 0; j < 6; j++)
+		{
+			name[i][j] = 'a' + rand() % 26;
+		}
+		for(int k = 0; k < 9; k++)
+		{
+			if(k == 4)
+				number[i][8] = '-';
+			else
+				number[i][k+4] = '0' + rand() % 10;
+		}
+		Linked_list_add(name[i],number[i],1);
+	}
+
+	return 0;
+}
 void print_data(void)
 {
 	Phone_Data *cur = head;

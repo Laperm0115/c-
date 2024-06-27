@@ -6,13 +6,21 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 CC	Makefile	/^CC = gcc $/;"	m
 CFLGAS	Makefile	/^CFLGAS = -Wall -O2$/;"	m
+File_remove	sys.c	/^int File_remove(void)$/;"	f
+File_save	sys.c	/^int File_save(char *name, char* number)$/;"	f
+File_store	sys.c	/^int File_store(void)$/;"	f
 Insert_pn_info	sys.c	/^int Insert_pn_info(void)$/;"	f
 Linkd_list_init	sys.c	/^void Linkd_list_init(void)$/;"	f
-Linked_list_add	sys.c	/^void Linked_list_add(char *name, char *number)$/;"	f
+Linked_list_add	sys.c	/^void Linked_list_add(char *name, char *number,int save)$/;"	f
 Linked_list_remove	sys.c	/^void Linked_list_remove(char *number)$/;"	f
 Linked_list_search	sys.c	/^void Linked_list_search(char *name)$/;"	f
 MS_100	main.c	7;"	d	file:
+NAME_LEN	main.c	8;"	d	file:
+NAME_LEN	sys.c	8;"	d	file:
+NUMBER_LEN	main.c	9;"	d	file:
+NUMBER_LEN	sys.c	9;"	d	file:
 Phone_Data	sys.h	/^}Phone_Data;$/;"	t	typeref:struct:phone
+Test_Insert_pn_info	sys.c	/^int Test_Insert_pn_info(void)$/;"	f
 head	sys.c	/^Phone_Data *head;$/;"	v
 main	main.c	/^int main(int argc, char* argv)$/;"	f
 name	sys.h	/^	unsigned char name[16];$/;"	m	struct:phone
