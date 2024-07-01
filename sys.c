@@ -39,33 +39,39 @@ void Linked_list_remove(char *number)
 				return ;
 			}
 		}
+		prev = cur;
 	}
 	printf("No data Can't delete...\n");
 	return ;
 }
 
-
-void Linked_list_search(char *name)
+// return 0: success 1: fail
+int Linked_list_search(char *number)
 {
 	Phone_Data *cur = head;
 
 	for(; cur; cur = cur->next)
 	{
-		if(strcasecmp(cur->name,name) == 0)
+		if(strcmp(cur->number,number) == 0)
 		{
 			printf("Found Data!!\n");
 			printf("Found Data[NAME]:%s\n",cur->name);
 			printf("Found Data[NUMBER]:%s\n",cur->number);
-			return;
+			return 0;
 		}
 	}
-	printf("Not Found Data...\n");
-	return ;
+	return -1;
 }
 
 void Linked_list_add(char *name, char *number,int save)
 {
 	Phone_Data *n_node;
+	int ret = Linked_list_search(number);
+	if(ret == 0)
+	{
+		printf("동일한 값은 입력할 수 없습니다.\n");
+		return ;
+	}
 
 	n_node = (Phone_Data *)malloc(sizeof(Phone_Data));
 	strcpy(n_node->name,name);
@@ -163,25 +169,24 @@ int Insert_pn_info(void)
 }
 int Test_Insert_pn_info(void)
 {
-	char number[100][16] = {0,};
-	char name[100][16] = {0,};
+	char number[16] = "010-";
+	char name[16] = {0,};
 
 	srand((unsigned int)time(NULL));
-	for(int i = 0; i < 99; i++)
+	for(int i = 0; i < 999; i++)
 	{
-		strcpy(number[i],"010-");
 		for(int j = 0; j < 6; j++)
 		{
-			name[i][j] = 'a' + rand() % 26;
+			name[j] = 'a' + rand() % 26;
 		}
 		for(int k = 0; k < 9; k++)
 		{
 			if(k == 4)
-				number[i][8] = '-';
+				number[8] = '-';
 			else
-				number[i][k+4] = '0' + rand() % 10;
+				number[k+4] = '0' + rand() % 10;
 		}
-		Linked_list_add(name[i],number[i],1);
+		Linked_list_add(name,number,1);
 	}
 
 	return 0;
@@ -189,15 +194,17 @@ int Test_Insert_pn_info(void)
 void print_data(void)
 {
 	Phone_Data *cur = head;
-	const char *format = "-----------------------";
-
-	printf("%s\n",format);
+	int i = 1;
+	printf("\n[Start]\n");
 	for(; cur; cur = cur->next)
 	{
-		printf("Phone Data[NAME]:%s\n",cur->name);
-		printf("Phone Data[NUMBER]:%s\n",cur->number);
+		if(i % 4 == 0)
+			printf("\n");
+		printf("[%d]Phone Data[NAME]:%s [NUMBER]:%s\t\t",i,cur->name,cur->number);
+		//printf("Phone Data[NUMBER]:%s\n",cur->number);
+		i++;
 	}
-	printf("%s\n",format);
+	printf("\n[END]\n");
 	return ;
 }
 

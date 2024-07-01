@@ -6,7 +6,7 @@ typedef struct phone{
 // FUNCTIONS
 
 void Linked_list_remove(char *number);
-void Linked_list_search(char *name);
+int Linked_list_search(char *name);
 void Linked_list_add(char *name, char *number,int save_flag);
 int Test_Insert_pn_info(void);
 int Insert_pn_info(void);

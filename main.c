@@ -14,6 +14,7 @@ int main(int argc, char* argv)
 	char buf[32] = "";
 	char *line = "-----------------------------\n";
 	int command = 0;
+	int ret = 0;
 	system("clear");
 	printf("%s",line);
 	printf("%s","전화번호 관리프로그램 시작...\n");
@@ -76,7 +77,9 @@ int main(int argc, char* argv)
 						printf("[ERROR] 올바른 형식이아닙니다..\n");
 						break;
 					}
-					Linked_list_search(buf);
+					ret = Linked_list_search(buf);
+					if(ret == -1)
+						printf("[INFO] 데이터를 찾지 못했습니다...\n");
 					break;
 				}
 			case 'e':
