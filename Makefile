@@ -11,4 +11,7 @@ clean:
 	rm -f *.o
 tag:
 	ctags -R
+test:
+	$(CC) -o test test.c
+
 

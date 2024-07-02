@@ -23,7 +23,7 @@ int main(int argc, char* argv)
 	if(strcmp(cmd,"yes") == 0 || strcmp(cmd,"Yes") == 0)
 	{
 		printf("%s","파일을 불러오는중입니다...\n");
-		File_store();
+		File_load();
 	}
 	else
 		printf("%s","파일을 불러오지 않습니다!!\n");
@@ -89,7 +89,7 @@ int main(int argc, char* argv)
 				}
 			case 'f':
 				{
-					File_remove();
+					File_remove_all();
 					break;
 				}
 			case 't':

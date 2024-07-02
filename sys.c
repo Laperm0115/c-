@@ -3,6 +3,7 @@
 #include <string.h>
 #include <errno.h>
 #include <time.h>
+#include <unistd.h>
 #include "sys.h"
 
 #define NAME_LEN 3
@@ -27,6 +28,7 @@ void Linked_list_remove(char *number)
 				free(cur);
 
 				printf("Deleted Data!!\n");
+				File_remove_node(cur->number);
 				return ;
 			}
 			else
@@ -36,6 +38,7 @@ void Linked_list_remove(char *number)
 				free(cur);
 
 				printf("Deleted Data!!\n");
+				File_remove_node(cur->number);
 				return ;
 			}
 		}
@@ -96,13 +99,44 @@ int File_save(char *name, char* number)
 {
 	FILE *fp;
 	fp = fopen("Storage.txt","a");
-	//fseek(fp,0,SEEK_END);
 	fprintf(fp,"Name: %s Phone number: %s\n", name, number);
 	fclose(fp);
 
 	return 0;
 }
-int File_remove(void)
+int File_remove_node(char *number)
+{
+	const char* filename = "Storage.txt";
+	const char* tmp_filename = "tmp.txt";
+	FILE *fp = fopen(filename,"r");
+	FILE *tmp = fopen(tmp_filename,"w");
+	char f_name[16] = "";
+	char f_number[16] = "";
+	int ret = 0;
+
+	if(fp == NULL || tmp == NULL)
+		return -1;
+
+	while(1)
+	{
+		ret = fscanf(fp,"Name: %s Phone number: %s\n",f_name,f_number);
+		if(ret == EOF)
+			break;
+		else
+		{
+			if(strcmp(number,f_number) != 0)
+				fprintf(tmp,"Name: %s Phone number: %s\n", f_name, f_number);
+		}
+	}
+	fclose(fp);
+	fclose(tmp);
+
+	remove(filename);
+	rename(tmp_filename,filename);
+	unlink(tmp_filename);
+	return 0;
+}
+int File_remove_all(void)
 {
 	const char* filename = "Storage.txt";
 	remove(filename);
@@ -110,7 +144,7 @@ int File_remove(void)
 
 	return 0;
 }
-int File_store(void)
+int File_load(void)
 {
 	FILE *fp;
 	char name[16] = "";
@@ -173,7 +207,7 @@ int Test_Insert_pn_info(void)
 	char name[16] = {0,};
 
 	srand((unsigned int)time(NULL));
-	for(int i = 0; i < 999; i++)
+	for(int i = 0; i < 7; i++)
 	{
 		for(int j = 0; j < 6; j++)
 		{
@@ -194,8 +228,8 @@ int Test_Insert_pn_info(void)
 void print_data(void)
 {
 	Phone_Data *cur = head;
-	int i = 1;
-	printf("\n[Start]\n");
+	int i = 0;
+	printf("\n[Start]");
 	for(; cur; cur = cur->next)
 	{
 		if(i % 4 == 0)
